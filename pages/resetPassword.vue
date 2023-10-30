@@ -1,4 +1,5 @@
 <template>
+  <img class="logo" src="/Vocabify.png" alt="">
   <div class="register">
       <form class="container" @submit.prevent="resetPassword(userData)">
         <h2>Reset Password</h2>
@@ -19,6 +20,12 @@
   </template>
   
   <style lang="scss" scoped>
+  .logo {
+  height: 100px;
+  width: auto;
+  position: absolute;
+}
+
   h2 {
   margin-bottom: 0;
   text-align: center;

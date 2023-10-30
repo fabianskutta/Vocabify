@@ -1,4 +1,5 @@
 <template>
+  <img class="logo" src="/Vocabify.png" alt="">
   <div class="register">
       <form class="container" @submit.prevent="updatePassword(userData)">
         <label for="password"><b>New Password</b></label>
@@ -17,6 +18,12 @@
   </template>
   
   <style lang="scss">
+  .logo {
+  height: 100px;
+  width: auto;
+  position: absolute;
+}
+
   .form-links {
     display: flex;
     justify-content: space-evenly;

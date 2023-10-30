@@ -4,7 +4,7 @@
 </div>
 
 
-{{ word.term }}
+{{ word.term }} - 
 {{ word.definition }}
 </template>
 

@@ -1,10 +1,13 @@
 <template>
+<div class="padding">
+  <img class="logo2" src="/Vocabify.png" alt="">
     <br><br>
-<Nuxt-link to="/" class="btn">Back</Nuxt-link> <Nuxt-link :to="`/box-edit/${id}`" class="btn">Edit</Nuxt-link>
+<Nuxt-link to="/" class="btn">Zurück</Nuxt-link> <Nuxt-link :to="`/box-edit/${id}`" class="btn">Bearbeiten</Nuxt-link>
 <h1>{{ box.name }}</h1>
 
 
 <Words v-for="word of words" :word="word" :key="word.id"/>
+</div>
 </template>
 
 <style>
