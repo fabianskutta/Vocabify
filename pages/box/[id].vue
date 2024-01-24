@@ -1,8 +1,8 @@
 <template>
+   <Nav :box="box" :home="true"/>
 <div class="padding">
-  <img class="logo2" src="/Vocabify.png" alt="">
-    <br><br>
-<Nuxt-link to="/" class="btn">Zurück</Nuxt-link> <Nuxt-link :to="`/box-edit/${id}`" class="btn">Bearbeiten</Nuxt-link>
+  <br><br><br><br>
+<Nuxt-link :to="`/box-edit/${id}`" class="btn">Bearbeiten</Nuxt-link> <Nuxt-link :to="`/tray-selection/${id}`" class="btn">Lernen</Nuxt-link>
 <h1>{{ box.name }}</h1>
 
 

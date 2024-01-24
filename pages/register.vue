@@ -1,5 +1,5 @@
 <template>
-  <img class="logo" src="/Vocabify.png" alt="">
+  <Nav/>
   <div class="register">
       <form class="container" @submit.prevent="signUp(userData)">
         <h2>Register</h2>
@@ -23,11 +23,6 @@
   </template>
   
   <style lang="scss">
-  .logo {
-  height: 100px;
-  width: auto;
-  position: absolute;
-}
 
   h2 {
   margin-bottom: 0;

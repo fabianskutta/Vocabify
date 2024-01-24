@@ -1,9 +1,7 @@
 <template>
+  <Nav :box="box" :back="true"/>
   <div class="padding">
-    <img class="logo2" src="/Vocabify.png" alt="">
-    <br><br>
-    <Nuxt-link :to="`/box/${id}`" class="btn">Zurück</Nuxt-link> <Nuxt-link @click="deleteBox()" class="btn">Box löschen</Nuxt-link>
-    <br> <br><br>
+    <br><br><br><br>
     <input @blur="name => changeBoxname(name)" :value="box.name" type="text" name="name" required>
     <br> <br>
 <div v-for="word of words" :word="word" :key="word.id">
@@ -26,6 +24,8 @@
 
 <br>
 <Nuxt-link @click="addWord()" class="btn">Add Card</Nuxt-link>
+<br><br><br>
+<Nuxt-link @click="deleteBox()" class="btn">Box löschen</Nuxt-link>
   </div>
 </template>
 
@@ -97,7 +97,7 @@ const userData = ref({
     newDefinition: "",
   });
 
-const { data: box } = await useAsyncData('boxes', async () => {
+const { data: box, refresh: refreshBox } = await useAsyncData('boxes', async () => {
   const { data } = await client.from('boxes').select('*').eq('id', id)
 
   return data[0]
@@ -116,6 +116,7 @@ async function changeTerm(term, id) {
 async function changeBoxname(name) {
     let value = name.target.value;
     const { data, error } = await client.from('boxes').update({ name: value }).eq('id', id).select();
+    refreshBox();
 }
 
 async function changeDefinition(definition, id) {
@@ -136,7 +137,7 @@ async function deleteBox() {
 
 async function addWord() {
     const { data, error } = await client.from('words').insert([
-    { box_id: id },
+    { box_id: id, level: 1 },
   ])
   .select()
     refreshWords();

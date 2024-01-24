@@ -1,5 +1,5 @@
 <template>
-  <img class="logo" src="/Vocabify.png" alt="">
+  <Nav/>
 <div class="login">
     <form class="container" @submit.prevent="signIn(userData)">
       <h2>Login</h2>
@@ -23,11 +23,6 @@
 </template>
 
 <style lang="scss" scoped>
-.logo {
-  height: 100px;
-  width: auto;
-  position: absolute;
-}
 
 h2 {
   margin-bottom: 0;
