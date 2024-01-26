@@ -1,6 +1,6 @@
 <template>
   <Nav/>
-<div class="login">
+<div v-if="isFormRendered" class="login">
     <form class="container" @submit.prevent="signIn(userData)">
       <h2>Login</h2>
       <label for="email"><b>E-Mail</b></label>
@@ -132,4 +132,10 @@ const userData = ref({
     userData.value.errorMsg = error.message;
   }
 }
+
+const isFormRendered = ref(false);
+
+onMounted(() => {
+  isFormRendered.value = true;
+});
 </script>
