@@ -12,11 +12,25 @@
 
 <style lang="scss">
 .box-sneak {
-    padding: 1rem;
-    margin: 0.25rem;
-    color: #fff;
+    background-color: #171717;
+    display: flex;
+    width: 300px;
+    padding: 1.5rem;
+    justify-content: center;
+    flex-direction: column;
+    border-color: #ffffff17;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    margin: 1.5rem;
     text-decoration: none;
-    background: #171717;
-    border-radius: 4px;
+
+    h3 {
+    font-weight: 800;
+    font-size: 1.5rem; 
+    margin: 0;
+    color: #fff;
+    text-align: center;
+  }
     }
 </style>

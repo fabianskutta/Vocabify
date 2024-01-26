@@ -14,8 +14,9 @@
     
     <style scoped>
     .boxes {
-        display: flex;
         margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
     }
     
     body {
