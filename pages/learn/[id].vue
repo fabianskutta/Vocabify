@@ -16,6 +16,11 @@
     <div @click="no(word.id, word.level)" class="btn no">Nicht gewusst</div>
   </div>
   </div>
+
+  <div v-if="!word" class="card-container">
+    <img src="https://i.gifer.com/origin/02/02326e71d0adc41645bff3f07d930343_w200.gif" alt="">
+    <p>Du hast genug gelernt. Gönn Dir mal eine Pause!</p>
+  </div>
  </template>
 
 <script setup>
@@ -28,7 +33,6 @@ const flipCard = () => {
 
  const client = useSupabaseClient();
  const { id } = useRoute().params;
- const tray = useRoute().query.tray;
  
  const { data: box } = await useAsyncData('boxes', async () => {
    const { data } = await client.from('boxes').select('*').eq('id', id)
@@ -36,18 +40,39 @@ const flipCard = () => {
  })
  
  const { data: word, refresh: refreshWords } = await useAsyncData('words', async () => {
-   const { data } = await client.from('words').select('*').eq('box_id', id).eq('level', tray)
- 
-   return data[0]
- })
+  const { data } = await client.from('words').select('*').eq('box_id', id);
+
+  const currentDate = new Date();
+
+  for (const wordItem of data) {
+    const level = wordItem.level;
+
+    if (level === null) {
+      return wordItem;
+    }
+
+    const lastLearnedDate = new Date(wordItem.LastLearned);
+    const intervalDays = Math.pow(2, level - 1);
+
+    const nextDueDate = new Date(lastLearnedDate);
+    nextDueDate.setDate(lastLearnedDate.getDate() + intervalDays);
+
+    if (currentDate > nextDueDate) {
+      return wordItem;
+    }
+  }
+
+  if (voluntaryLearning == true) {
+    return data.length > 0 ? data[0] : null;
+  }
+});
 
  async function yes(id, level) {
-  if (level != 4) {
+  if (level != 16) {
     level++;
   }
-    const { data, error } = await client.from('words').update({ level: level }).eq('id', id).select();
+    const { data, error } = await client.from('words').update({ level: level, LastLearned: new Date() }).eq('id', id).select();
     refreshWords();
-    isFlipped.value = false;
     confetti();
 }
 
@@ -55,7 +80,7 @@ async function no(id, level) {
   if (level != 1) {
     level--;
   }
-    const { data, error } = await client.from('words').update({ level: level }).eq('id', id).select();
+    const { data, error } = await client.from('words').update({ level: level, LastLearned: new Date() }).eq('id', id).select();
     refreshWords();
 }
  </script>
@@ -128,7 +153,7 @@ async function no(id, level) {
     }
 
     .back {
-      background-color: #303030; /* Hintergrundfarbe der Rückseite anpassen */
+      background-color: #303030;
       transform: rotateY(180deg);
     }
  </style>

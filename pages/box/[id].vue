@@ -2,7 +2,7 @@
    <Nav :box="box" :home="true"/>
 <div class="padding">
   <br><br><br><br>
-<Nuxt-link :to="`/box-edit/${id}`" class="btn">Bearbeiten</Nuxt-link> <Nuxt-link :to="`/tray-selection/${id}`" class="btn">Lernen</Nuxt-link>
+<Nuxt-link :to="`/box-edit/${id}`" class="btn">Bearbeiten</Nuxt-link> <Nuxt-link :to="`/learn/${id}`" class="btn">Lernen</Nuxt-link>
 <h1>{{ box.name }}</h1>
 
 

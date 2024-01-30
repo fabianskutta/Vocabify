@@ -2,7 +2,10 @@
   <Nav :box="box" :back="true"/>
   <div class="padding">
     <br><br><br><br>
-    <input @blur="name => changeBoxname(name)" :value="box.name" type="text" name="name" required>
+    <div class="inputs">
+      <input @blur="name => changeBoxname(name)" :value="box.name" type="text" name="name" required>
+      <input type="file" @change="handleFileUpload">
+    </div>
     <br> <br>
 <div v-for="word of words" :word="word" :key="word.id">
   <div class="wordsEdit-container">
@@ -30,6 +33,14 @@
 </template>
 
 <style>
+.inputs {
+  display: flex;
+
+  input {
+    margin-right: 2rem;
+  }
+}
+
 .wordsEdit-container {
     padding: 1rem;
     margin: 1rem 0;
@@ -142,4 +153,42 @@ async function addWord() {
   .select()
     refreshWords();
 }
+
+import Papa from 'papaparse';
+
+async function handleFileUpload(event) {
+  const file = event.target.files[0];
+
+  if (file) {
+    Papa.parse(file, {
+      encoding: 'UTF-8',
+      complete: async (result) => {
+        const header = result.data[0];
+        const termIndex = header.indexOf('term');
+        const definitionIndex = header.indexOf('definition');
+
+        if (termIndex !== -1 && definitionIndex !== -1) {
+          const wordsToInsert = result.data.slice(1).filter(row => row[termIndex] && row[definitionIndex]).map((row) => {
+            return {
+              box_id: id,
+              term: row[termIndex],
+              definition: row[definitionIndex],
+              level: 1,
+            };
+          });
+
+          if (wordsToInsert.length > 0) {
+            const { data, error } = await client.from('words').insert(wordsToInsert).select();
+            refreshWords();
+          } else {
+            console.error('Die CSV-Datei enthält keine gültigen Daten.');
+          }
+        } else {
+          console.error('CSV-Datei muss die Spalten "term" und "definition" enthalten.');
+        }
+      },
+    });
+  }
+}
+
 </script>

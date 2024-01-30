@@ -7,7 +7,6 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/main.scss',
   ],
-
   supabase: {
     redirectOptions: {
       login: '/login',
