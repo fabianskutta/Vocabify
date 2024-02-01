@@ -2,13 +2,13 @@
     <Nav logout="true"/>
     <div class="padding">
         <br><br><br><br>
-        <Nuxt-link @click="addBox()" class="btn">Box erstellen</Nuxt-link>
+        <Nuxt-link @click="addBox()" class="btn">Sammlung erstellen</Nuxt-link>
     
         <div class="boxes">
                 <BoxSnaek v-for="box of boxes" :box="box" :key="box.id"/>
         </div>
     
-        <p v-if="!boxes[0]">Du hast noch keine Boxen erstellt!</p>
+        <p v-if="!boxes[0]">Du hast noch keine Sammlung erstellt!</p>
     </div>
     </template>
     
@@ -37,7 +37,7 @@
     
     async function addBox() {
         const { data, error } = await client.from('boxes').insert([
-        { name: 'New Box', user_id: user.value.id},
+        { name: 'Neue Sammlung', user_id: user.value.id},
       ])
       .select()
       refreshBoxes();

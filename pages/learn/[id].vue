@@ -61,10 +61,6 @@ const flipCard = () => {
       return wordItem;
     }
   }
-
-  if (voluntaryLearning == true) {
-    return data.length > 0 ? data[0] : null;
-  }
 });
 
  async function yes(id, level) {
@@ -74,6 +70,7 @@ const flipCard = () => {
     const { data, error } = await client.from('words').update({ level: level, LastLearned: new Date() }).eq('id', id).select();
     refreshWords();
     confetti();
+    isFlipped.value = false;
 }
 
 async function no(id, level) {
@@ -82,6 +79,7 @@ async function no(id, level) {
   }
     const { data, error } = await client.from('words').update({ level: level, LastLearned: new Date() }).eq('id', id).select();
     refreshWords();
+    isFlipped.value = false;
 }
  </script>
  

@@ -11,7 +11,7 @@
   <div class="wordsEdit-container">
     <form class="wordsEdit-input-container">
         <div class="wordsEdit-input">
-            <label for="term"><b>Term</b></label>
+            <label for="term"><b>Begriff</b></label>
             <input @blur="term => changeTerm(term, `${word.id}`)" :value="word.term" type="text" name="term" required>
         </div>
         <div class="wordsEdit-input">
@@ -19,14 +19,14 @@
             <input @blur="definition => changeDefinition(definition, `${word.id}`)" :value="word.definition" type="text" name="definition" required>
         </div>
         <div class="wordsEdit-btn">
-            <Nuxt-link @click="deleteWord(`${word.id}`)" class="btn">Delete</Nuxt-link>
+            <Nuxt-link @click="deleteWord(`${word.id}`)" class="btn">Löschen</Nuxt-link>
         </div>
     </form>
 </div>
 </div>
 
 <br>
-<Nuxt-link @click="addWord()" class="btn">Add Card</Nuxt-link>
+<Nuxt-link @click="addWord()" class="btn">Karte hinzufügen</Nuxt-link>
 <br><br><br>
 <Nuxt-link @click="deleteBox()" class="btn">Box löschen</Nuxt-link>
   </div>
