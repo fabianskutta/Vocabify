@@ -13,7 +13,6 @@
 
       <button type="submit">Login</button>
       <div class="form-links">
-        <nuxt-link to="/resetPassword">Forgot your password?</nuxt-link>
         <nuxt-link to="/register">Don't have an account? Register!</nuxt-link>
       </div>
     </form>
