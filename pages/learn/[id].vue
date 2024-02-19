@@ -39,48 +39,50 @@ const flipCard = () => {
    return data[0]
  })
  
- const { data: word, refresh: refreshWords } = await useAsyncData('words', async () => {
-  const { data } = await client.from('words').select('*').eq('box_id', id);
+ const { data: word, refresh: refreshWords } = await useAsyncData("words", async () => {
+    const { data } = await client.from("words").select("*").eq("box_id", id);
+    const currentDate = new Date();
 
-  const currentDate = new Date();
+    for (const wordItem of data) {
+      const level = wordItem.level;
 
-  for (const wordItem of data) {
-    const level = wordItem.level;
+      if (level === null) {
+        return wordItem;
+      }
 
-    if (level === null) {
-      return wordItem;
+      const lastLearnedDate = new Date(wordItem.LastLearned);
+      const intervalDays = Math.pow(level, 2);
+
+      const nextDueDate = new Date(lastLearnedDate);
+      nextDueDate.setDate(lastLearnedDate.getDate() + intervalDays);
+
+      if (currentDate > nextDueDate) {
+        return wordItem;
+      }
     }
+  },
+);
 
-    const lastLearnedDate = new Date(wordItem.LastLearned);
-    const intervalDays = Math.pow(2, level - 1);
+async function updateLevel(id, levelChange) {
+  const newLevel = Math.min(Math.max(1, levelChange), 16);
+  const { data, error } = await client
+    .from('words')
+    .update({ level: newLevel, LastLearned: new Date() })
+    .eq('id', id)
+    .select();
+  refreshWords();
+  isFlipped.value = false;
+}
 
-    const nextDueDate = new Date(lastLearnedDate);
-    nextDueDate.setDate(lastLearnedDate.getDate() + intervalDays);
-
-    if (currentDate > nextDueDate) {
-      return wordItem;
-    }
-  }
-});
-
- async function yes(id, level) {
-  if (level != 16) {
-    level++;
-  }
-    const { data, error } = await client.from('words').update({ level: level, LastLearned: new Date() }).eq('id', id).select();
-    refreshWords();
-    confetti();
-    isFlipped.value = false;
+async function yes(id, level) {
+  await updateLevel(id, level + 1);
+  confetti();
 }
 
 async function no(id, level) {
-  if (level != 1) {
-    level--;
-  }
-    const { data, error } = await client.from('words').update({ level: level, LastLearned: new Date() }).eq('id', id).select();
-    refreshWords();
-    isFlipped.value = false;
+  await updateLevel(id, level - 1);
 }
+
  </script>
  
  <style lang="scss">
