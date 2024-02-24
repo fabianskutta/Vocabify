@@ -1,0 +1,4 @@
+# Nuxt dev/build outputs
+.venv
+.venv.*
+
