@@ -45,7 +45,7 @@
     padding: 1rem;
     margin: 1rem 0;
     border-radius: 4px;
-    background-color: #171717;
+    background-color: var(--background2);
 }
 .wordsEdit-input-container {
     display: flex;
@@ -66,7 +66,7 @@ input, select, textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #333333;
-  background-color: #171717;
+  background-color: var(--input);
   color: var(--text1);
   border-radius: 4px;
   resize: vertical;

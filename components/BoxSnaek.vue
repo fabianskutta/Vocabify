@@ -12,7 +12,7 @@
 
 <style lang="scss">
 .box-sneak {
-    background-color: #171717;
+    background-color: var(--input);
     display: flex;
     width: 300px;
     padding: 1.5rem;
@@ -29,7 +29,7 @@
     font-weight: 800;
     font-size: 1.5rem; 
     margin: 0;
-    color: #fff;
+    color: var(--text1);
     text-align: center;
   }
     }

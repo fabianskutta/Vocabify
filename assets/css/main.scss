@@ -4,6 +4,22 @@ html {
     --text2: #ffffffd8;
     --background1: #1C1C1C;
     --background2: #242424;
+    --input: #171717;
+    --card: #171717;
+    --cardbg: #303030;
+
+}
+
+@media (prefers-color-scheme: light) {
+	html {
+        --text1: #000000;
+        --text2: #000000d8;
+        --background1: #f6f6f6;
+        --background2: #ffffff;
+        --input: #ffffff;
+        --card: #ffffff;
+        --cardbg: #c7c7c7;
+	}
 }
 
 html {

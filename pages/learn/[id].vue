@@ -145,15 +145,15 @@ async function no(id, level) {
       border: 1px solid #ffffff17;
       border-radius: 20px;
       box-sizing: border-box;
-      color: white;
+      color: var(--text1);
     }
 
     .front {
-      background-color: #171717;
+      background-color: var(--card);
     }
 
     .back {
-      background-color: #303030;
+      background-color: var(--cardbg);
       transform: rotateY(180deg);
     }
  </style>

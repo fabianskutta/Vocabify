@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/supabase',
+    '@nuxtjs/color-mode'
   ],
   css: [
     '@/assets/css/main.scss',
