@@ -13,7 +13,7 @@
 
       <button type="submit">Login</button>
       <div class="form-links">
-        <nuxt-link to="/register">Don't have an account? Register!</nuxt-link>
+        <nuxt-link to="/register">Du hast noch kein Konto? Registriere Dich!</nuxt-link>
       </div>
     </form>
     <div class="glow"></div>

@@ -1,5 +1,5 @@
 <template>
-  <Nav :box="box" :back="true"/>
+  <Nav :box="box" btn="toBox"/>
   <div class="padding">
     <br><br><br><br>
     <div class="inputs">

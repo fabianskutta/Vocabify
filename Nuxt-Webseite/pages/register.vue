@@ -14,7 +14,7 @@
   
         <button type="submit">Register</button>
         <div class="form-links">
-          <nuxt-link to="/login">Already have an account? Login</nuxt-link>
+          <nuxt-link to="/login">Du hast bereits ein Konto?</nuxt-link>
         </div>
       </form>
       <div class="glow"></div>

@@ -1,5 +1,5 @@
 <template>
-    <Nav :box="box" :back="true"/>
+    <Nav :box="box" btn="toBox"/>
     <div v-if="word" class="card-container">
       <div class="card" @click="flipCard">
     <div class="card-inner" :class="{ flipped: isFlipped }">

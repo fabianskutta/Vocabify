@@ -1,5 +1,5 @@
 <template>
-    <Nav logout="true"/>
+    <Nav btn="logout"/>
     <div class="padding">
         <br><br><br><br>
         <Nuxt-link @click="addBox()" class="btn">Sammlung erstellen</Nuxt-link>

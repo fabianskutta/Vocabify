@@ -3,12 +3,12 @@
         <div v-if="$colorMode.value == 'light'" id="logo"><img src="/Vocabify-w.png" alt=""></div>
         <div v-if="$colorMode.value !== 'light'" id="logo"><img src="/Vocabify.png" alt=""></div>
         <div v-if="box"><h3>{{ box.name }}</h3></div>
-        <div><Nuxt-link v-if="logout" @click="signOut()" class="btn">Logout</Nuxt-link><Nuxt-link v-if="back" :to="`/box/${box.id}`" class="btn">Zurück</Nuxt-link><Nuxt-link v-if="home" :to="`/`" class="btn">Zurück</Nuxt-link></div>
+        <div><Nuxt-link v-if="btn=='logout'" @click="signOut()" class="btn">Abmelden</Nuxt-link><Nuxt-link v-if="btn=='toBox'" :to="`/box/${box.id}`" class="btn">Zurück</Nuxt-link><Nuxt-link v-if="btn=='home'" :to="`/`" class="btn">Zurück</Nuxt-link></div>
     </nav>
 </template>
 
 <script setup lang="ts">
-defineProps<{box: Box; back:Back; home:Home; logout:Logout;}>();
+defineProps<{btn: Btn; box: Box}>();
 
 const client = useSupabaseClient();
 const user = useSupabaseUser()

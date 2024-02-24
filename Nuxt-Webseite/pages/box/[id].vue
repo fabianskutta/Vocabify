@@ -1,5 +1,5 @@
 <template>
-   <Nav :box="box" :home="true"/>
+   <Nav :box="box" btn="home"/>
 <div class="padding">
   <br><br><br><br>
 <Nuxt-link :to="`/box-edit/${id}`" class="btn">Bearbeiten</Nuxt-link> <Nuxt-link :to="`/learn/${id}`" class="btn">Lernen</Nuxt-link>
