@@ -32,7 +32,7 @@ Vocabify ist ein Vokabeltrainer nach dem Leitner-System für effektives Spaced R
         ├── Simulation.py               # Python-Skript für die Simulation
         └── .gitignore                  # Git-Konfigurationsdatei, um bestimmte Dateien zu ignorieren
     ├── Beispiel Vokabeln.csv           # CSV-Datei mit Beispielvokabeln
-    └── Facharbeit - Die Kunst des Erinnerns.pdf
+    └── Facharbeit - Zahlen, Sprachen, Erfolg.pdf
 
 
 ## Installation
