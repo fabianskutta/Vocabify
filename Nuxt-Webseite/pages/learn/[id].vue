@@ -1,68 +1,82 @@
 <template>
-    <Nav :box="box" btn="toBox"/>
-    <div v-if="word" class="card-container">
+  <!-- Navigationsleiste mit Schaltfläche zur Box-Seite -->
+  <Nav :box="box" btn="toBox"/>
+  <!-- Container für die Karte -->
+  <div v-if="word" class="card-container">
+      <!-- Kartelement -->
       <div class="card" @click="flipCard">
-    <div class="card-inner" :class="{ flipped: isFlipped }">
-      <div class="card-face front">
-        <h2>{{ word.term }}</h2>
+          <!-- Karteninhalt -->
+          <div class="card-inner" :class="{ flipped: isFlipped }">
+              <!-- Vorderseite der Karte mit Begriff -->
+              <div class="card-face front">
+                  <h2>{{ word.term }}</h2>
+              </div>
+              <!-- Rückseite der Karte mit Definition -->
+              <div class="card-face back">
+                  <h2>{{ word.definition }}</h2>
+              </div>
+          </div>
       </div>
-      <div class="card-face back">
-        <h2>{{ word.definition }}</h2>
+      <!-- Schaltflächen für "Gewusst" und "Nicht gewusst" -->
+      <div class="btns">
+          <div @click="yes(word.id, word.level)" class="btn yes">Gewusst</div>
+          <div @click="no(word.id, word.level)" class="btn no">Nicht gewusst</div>
       </div>
-    </div>
   </div>
-  <div class="btns">
-    <div @click="yes(word.id, word.level)" class="btn yes">Gewusst</div>
-    <div @click="no(word.id, word.level)" class="btn no">Nicht gewusst</div>
-  </div>
-  </div>
-
+  <!-- Nachricht, wenn keine Wörter verfügbar sind -->
   <div v-if="!word" class="card-container">
-    <img src="https://i.gifer.com/origin/02/02326e71d0adc41645bff3f07d930343_w200.gif" alt="">
-    <p>Du hast genug gelernt. Gönn Dir mal eine Pause!</p>
+      <img src="https://i.gifer.com/origin/02/02326e71d0adc41645bff3f07d930343_w200.gif" alt="">
+      <p>Du hast genug gelernt. Gönn Dir mal eine Pause!</p>
   </div>
- </template>
+</template>
 
 <script setup>
 
-const isFlipped = ref(false);
+// Importieren der Reactivity-Funktionen für die Komponente
+const isFlipped = ref(false); // Reaktive Variable für den Kartenflip-Zustand
 
+// Funktion zum Umschalten des Kartenflip-Zustands
 const flipCard = () => {
   isFlipped.value = !isFlipped.value;
 };
 
- const client = useSupabaseClient();
- const { id } = useRoute().params;
- 
- const { data: box } = await useAsyncData('boxes', async () => {
-   const { data } = await client.from('boxes').select('*').eq('id', id)
-   return data[0]
- })
- 
- const { data: word, refresh: refreshWords } = await useAsyncData("words", async () => {
-    const { data } = await client.from("words").select("*").eq("box_id", id);
-    const currentDate = new Date();
+// Verwendung des Supabase-Clients
+const client = useSupabaseClient(); // Supabase-Client
 
-    for (const wordItem of data) {
-      const level = wordItem.level;
+// Extrahieren der ID aus den Routenparametern
+const { id } = useRoute().params;
 
-      if (level === null) {
-        return wordItem;
-      }
+// Abrufen der Daten der Box aus der Datenbank
+const { data: box } = await useAsyncData('boxes', async () => {
+  const { data } = await client.from('boxes').select('*').eq('id', id);
+  return data[0];
+});
 
-      const lastLearnedDate = new Date(wordItem.LastLearned);
-      const intervalDays = Math.pow(level, 2);
+// Abrufen der Daten des Wortes aus der Datenbank
+const { data: word, refresh: refreshWords } = await useAsyncData("words", async () => {
+  const { data } = await client.from("words").select("*").eq("box_id", id);
+  const currentDate = new Date();
 
-      const nextDueDate = new Date(lastLearnedDate);
-      nextDueDate.setDate(lastLearnedDate.getDate() + intervalDays);
+  for (const wordItem of data) {
+    const level = wordItem.level;
 
-      if (currentDate > nextDueDate) {
-        return wordItem;
-      }
+    if (level === null) {
+      return wordItem;
     }
-  },
-);
 
+    const lastLearnedDate = new Date(wordItem.LastLearned);
+    const intervalDays = Math.pow(level, 2);
+
+    const nextDueDate = new Date(lastLearnedDate);
+    nextDueDate.setDate(lastLearnedDate.getDate() + intervalDays);
+
+    if (currentDate > nextDueDate) {
+      return wordItem;
+    }
+  }
+});
+
+// Funktion zum Aktualisieren des Lernlevels eines Wortes
 async function updateLevel(id, levelChange) {
   const newLevel = Math.min(Math.max(1, levelChange), 16);
   const { data, error } = await client
@@ -74,18 +88,21 @@ async function updateLevel(id, levelChange) {
   isFlipped.value = false;
 }
 
+// Funktion für die Aktion "Ja" auf einem Wort
 async function yes(id, level) {
-  await updateLevel(id, level + 1);
-  confetti();
+  await updateLevel(id, level + 1); // Erhöhe das Lernlevel um 1
+  confetti(); // Starte die Konfetti-Animation
 }
 
+// Funktion für die Aktion "Nein" auf einem Wort
 async function no(id, level) {
-  await updateLevel(id, level - 1);
+  await updateLevel(id, level - 1); // Verringere das Lernlevel um 1
 }
 
  </script>
  
  <style lang="scss">
+      /* Stile für den Kartencontainer */
      .card-container {
       display: flex;
       justify-content: center;
@@ -94,6 +111,7 @@ async function no(id, level) {
       flex-direction: column;
     }
 
+    /* Stile für die Schaltflächen */
     .btns {
       margin-top: 2rem;
       display: flex;
@@ -102,16 +120,19 @@ async function no(id, level) {
         margin: 0.5rem;
       }
 
+      /* Stile für die Schaltfläche "Gewusst" */
       .yes {
         background-color: #63fd55;
         color: #000000;
       }
 
+      /* Stile für die Schaltfläche "Nicht gewusst" */
       .no {
         background-color: #ff4141;
       }
     }
 
+    /* Stile für die Karte */
     .card {
       position: relative;
       width: 500px;
@@ -120,6 +141,7 @@ async function no(id, level) {
       cursor: pointer;
     }
 
+    /* Stile für das Innere der Karte */
     .card-inner {
       position: absolute;
       width: 100%;
@@ -128,10 +150,12 @@ async function no(id, level) {
       transition: transform 0.5s;
     }
 
+    /* Stile für die umgedrehte Karte */
     .flipped {
       transform: rotateY(180deg);
     }
 
+    /* Stile für die Vorder- und Rückseite der Karte */
     .card-face {
       position: absolute;
       width: 100%;
@@ -148,10 +172,12 @@ async function no(id, level) {
       color: var(--text1);
     }
 
+    /* Stile für die Vorderseite der Karte */
     .front {
       background-color: var(--card);
     }
 
+    /* Stile für die Rückseite der Karte */
     .back {
       background-color: var(--cardbg);
       transform: rotateY(180deg);

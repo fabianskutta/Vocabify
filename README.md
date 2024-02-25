@@ -42,7 +42,7 @@ Folgen Sie diesen Schritten, um das Projekt auf Ihrem lokalen System zu installi
 
 2. Installieren Sie Node.js: [Node.js herunterladen](https://nodejs.org/en/download/current)
 
-3. Navigieren Sie in den Ordner der Nuxt-Webseite: `cd Nuxt-Webseite`
+3. Navigieren Sie in den Ordner der Nuxt-Webseite: `cd .\Nuxt-Webseite\`
 
 4. Installieren Sie die Abhängigkeiten: `npm install`
 

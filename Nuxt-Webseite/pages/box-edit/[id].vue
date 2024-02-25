@@ -1,13 +1,18 @@
 <template>
   <Nav :box="box" btn="toBox"/>
+  <!-- Platzhalter für den Abstand oben -->
+  <div class="nav-dummy"></div>
+  <!-- Bereich mit Innenabstand -->
   <div class="padding">
-    <br><br><br><br>
+    <!-- Eingabefelder für den Boxnamen und Dateiupload -->
     <div class="inputs">
       <input @blur="name => changeBoxname(name)" :value="box.name" type="text" name="name" required>
       <input type="file" @change="handleFileUpload">
     </div>
-    <br> <br>
-<div v-for="word of words" :word="word" :key="word.id">
+    <br><br>
+
+ <!-- Liste der Wörter -->
+  <div v-for="word of words" :word="word" :key="word.id">
   <div class="wordsEdit-container">
     <form class="wordsEdit-input-container">
         <div class="wordsEdit-input">
@@ -24,15 +29,17 @@
     </form>
 </div>
 </div>
-
 <br>
+<!-- Schaltfläche zum Hinzufügen eines Wortes -->
 <Nuxt-link @click="addWord()" class="btn">Karte hinzufügen</Nuxt-link>
 <br><br><br>
+<!-- Schaltfläche zum Löschen der Box -->
 <Nuxt-link @click="deleteBox()" class="btn">Box löschen</Nuxt-link>
   </div>
 </template>
 
 <style>
+/* Stile für die Eingabefelder */
 .inputs {
   display: flex;
 
@@ -41,27 +48,34 @@
   }
 }
 
+/* Stile für den Container der Wortbearbeitung */
 .wordsEdit-container {
     padding: 1rem;
     margin: 1rem 0;
     border-radius: 4px;
     background-color: var(--background2);
 }
+
+/* Stile für das Wortbearbeitungsformular */
 .wordsEdit-input-container {
     display: flex;
     justify-content: space-between;
 }
+
+/* Stile für die Eingabefelder im Wortbearbeitungsformular */
 .wordsEdit-input {
     width: 100%;
     margin-right: 2rem;
 }
 
+/* Stile für die Schaltflächen im Wortbearbeitungsformular */
 .wordsEdit-btn {
     flex-direction: column;
     display: flex;
     justify-content: flex-end;
 }
 
+/* Allgemeine Stile für Eingabefelder */
 input, select, textarea {
   width: 100%;
   padding: 12px;
@@ -72,6 +86,7 @@ input, select, textarea {
   resize: vertical;
 }
 
+/* Stile für die Schaltflächen */
 button[type=submit] {
   background-color: var(--accent1);
   color: white;
@@ -84,11 +99,13 @@ button[type=submit] {
   font-size: 1rem;
 }
 
+/* Stile für das Fokussieren von Eingabefeldern */
 textarea:focus, input:focus{
     outline: none;
     border: 1px solid #7a7a7a;
   }
 
+  /* Stile für die Beschriftungen */
   label {
   padding: 12px 12px 12px 0;
   display: inline-block;
@@ -99,15 +116,19 @@ textarea:focus, input:focus{
 </style>
 
 <script setup>
+// Importieren der Supabase-Funktionen
 const client = useSupabaseClient()
 
+// Parameter aus dem Routenobjekt extrahieren
 const { id } = useRoute().params;
 
+// Daten für die aktuelle Box und die zugehörigen Wörter abrufen
 const userData = ref({
     NewTerm: "",
     newDefinition: "",
   });
 
+// Funktionen für die Bearbeitung von Begriffen und Definitionen sowie das Hinzufügen und Löschen von Wörtern und Boxen definieren
 const { data: box, refresh: refreshBox } = await useAsyncData('boxes', async () => {
   const { data } = await client.from('boxes').select('*').eq('id', id)
 
@@ -154,6 +175,7 @@ async function addWord() {
     refreshWords();
 }
 
+// Funktion zum Verarbeiten des Dateiuploads
 import Papa from 'papaparse';
 
 async function handleFileUpload(event) {

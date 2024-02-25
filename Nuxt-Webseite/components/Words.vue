@@ -1,13 +1,7 @@
 <template>
-<div class="words-container">
-
-</div>
-
-
-{{ word.term }} - 
-{{ word.definition }}
+    {{ word.term }} - {{ word.definition }} <br>
 </template>
 
 <script setup lang="ts">
-defineProps<{word: Word;}>();
+    defineProps<{word: Word;}>();
 </script>
