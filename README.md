@@ -2,7 +2,7 @@
 
 ## Über das Projekt
 
-Vocabify ist ein Vokabeltrainer nach dem Leitner-System für effektives Wiederholungstraining im Rahmen der Facharbeit Q1.2 GSM entwickelt wurde.
+Vocabify ist ein Vokabeltrainer nach dem Leitner-System für effektives Spaced Repetition-Training, der im Rahmen der Facharbeit Q1 entwickelt wurde.
 
 ## Ordner-Struktur
     ├── Nuxt-Webseite/                  # Ordner für die Nuxt.js-Webanwendung
@@ -31,7 +31,8 @@ Vocabify ist ein Vokabeltrainer nach dem Leitner-System für effektives Wiederho
     ├── Python-Skript/                  # Ordner für das Python-Skript zur Berechnung von Markov-Ketten
         ├── Simulation.py               # Python-Skript für die Simulation
         └── .gitignore                  # Git-Konfigurationsdatei, um bestimmte Dateien zu ignorieren
-    └── Beispiel Vokabeln.csv           # CSV-Datei mit Beispielvokabeln
+    ├── Beispiel Vokabeln.csv           # CSV-Datei mit Beispielvokabeln
+    └── Facharbeit - Die Kunst des Erinnerns.pdf
 
 
 ## Installation
