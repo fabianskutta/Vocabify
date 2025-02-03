@@ -4,6 +4,8 @@
 
 Vocabify ist ein Vokabeltrainer nach dem Leitner-System für effektives Spaced Repetition-Training, der im Rahmen der Facharbeit Q1 entwickelt wurde.
 
+![image](https://cdn.fabian.lol/Vocabify.png)
+
 ## Ordner-Struktur
     ├── Nuxt-Webseite/                  # Ordner für die Nuxt.js-Webanwendung
         ├── assets/css/main.scss        # Globale CSS-Datei für die Webanwendung
